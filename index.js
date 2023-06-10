@@ -1,5 +1,4 @@
 const Discord = require("discord.js")
-const Twit = require('twit');
 const keepAlive = require("./server")
 const mySecret = process.env['TOKEN']
 const fetch = require("node-fetch")
@@ -33,30 +32,6 @@ const jokes = [
   'I think Microsoft named .Net so it wouldn’t show up in a Unix directory listing.',
   'There are two ways to write error-free programs; only the third one works.',
 ];
-
-const T = new Twit({
-  consumer_key: process.env.API_KEY,
-  consumer_secret: process.env.API_SKEY,
-  access_token: process.env.ACCESS_TOKEN,
-  access_token_secret: process.env.SACCESS_TOKEN,
-  bearer_token: process.env.BEARER_TOKEN,
-  timeout_ms: 60 * 1000,
-});
-
-// Destination Channel Twitter Forwards
-const dest = '848241535657181205';
-
-// Create a stream to follow tweets
-const stream = T.stream('statuses/filter', {
-  follow: '1395167952769634306', // @Stupidcounter
-});
-
-stream.on('tweet', (tweet) => {
-  const twitterMessage = `Read the latest tweet by ${tweet.user.name} (@${tweet.user.screen_name}) here: https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`;
-  client.channels.cache.get(dest).send(twitterMessage);
-  return;
-});
-
 
 //Encouragements#2
 db.get("encouragements").then(encouragements => {
